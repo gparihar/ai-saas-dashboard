@@ -92,8 +92,8 @@ export default function DashboardHome() {
     .slice(0, 5);
 
   return (
-    <div className="h-full overflow-y-auto p-6">
-      <div className="mb-6 flex items-center justify-between gap-4">
+    <div className="h-full overflow-y-auto bg-white p-4 dark:bg-[#0f172a] sm:p-6">
+      <div className="mb-6 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
         <div>
           <h1 className="text-2xl font-bold">Dashboard</h1>
           <p className="text-sm text-gray-500">Welcome back to AI SaaS.</p>
@@ -108,7 +108,7 @@ export default function DashboardHome() {
         </Link>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
           <div className="mb-3 flex items-center justify-between">
             <span className="text-sm text-gray-500">Chats</span>
@@ -142,7 +142,7 @@ export default function DashboardHome() {
         </div>
       </div>
 
-      <div className="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1fr)_22rem]">
+      <div className="mt-6 grid gap-4 lg:grid-cols-[minmax(0,1fr)_22rem]">
         <section className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
           <div className="mb-4 flex items-center justify-between">
             <h2 className="text-lg font-semibold">Recent Chats</h2>

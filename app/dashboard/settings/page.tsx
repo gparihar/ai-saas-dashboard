@@ -172,13 +172,13 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="h-full overflow-y-auto p-6">
+    <div className="h-full overflow-y-auto bg-white p-4 dark:bg-[#0f172a] sm:p-6">
       <div className="mb-6">
         <h1 className="text-2xl font-bold">Settings</h1>
         <p className="text-sm text-gray-500">Workspace preferences and chat history.</p>
       </div>
 
-      <div className="grid gap-4 xl:grid-cols-[22rem_minmax(0,1fr)]">
+      <div className="grid gap-4 lg:grid-cols-[22rem_minmax(0,1fr)]">
         <section className="space-y-4">
           <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
             <div className="mb-4 flex items-center gap-2">
@@ -211,7 +211,7 @@ export default function SettingsPage() {
             </button>
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             <div className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
               <p className="text-sm text-gray-500">Chats</p>
               <p className="mt-2 text-2xl font-bold">{sessions.length}</p>
@@ -224,28 +224,29 @@ export default function SettingsPage() {
         </section>
 
         <section className="rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-800 dark:bg-gray-950">
-          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
             <div className="flex items-center gap-2">
               <MessageSquare size={18} />
               <h2 className="text-lg font-semibold">Chat History</h2>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2 sm:flex-row">
               <button
                 type="button"
                 onClick={handleCopyHistory}
                 disabled={sessions.length === 0}
-                className="inline-flex items-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-800 dark:hover:bg-gray-900"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-gray-800 dark:hover:bg-gray-900"
               >
                 {copied ? <Check size={16} /> : <Copy size={16} />}
-                {copied ? "Copied" : "Copy JSON"}
+                <span className="hidden sm:inline">{copied ? "Copied" : "Copy JSON"}</span>
+                <span className="sm:hidden">{copied ? "Copied" : "Copy"}</span>
               </button>
 
               <button
                 type="button"
                 onClick={handleClearHistory}
                 disabled={sessions.length === 0}
-                className="inline-flex items-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-red-500/30 dark:hover:bg-red-500/10"
+                className="inline-flex items-center justify-center gap-2 rounded-lg border border-red-200 px-3 py-2 text-sm font-medium text-red-600 hover:bg-red-50 disabled:cursor-not-allowed disabled:opacity-60 dark:border-red-500/30 dark:hover:bg-red-500/10"
               >
                 <Trash2 size={16} />
                 Clear

@@ -54,10 +54,10 @@ export default function LoginPage() {
   };
 
   return (
-    <main className="flex min-h-screen items-center justify-center bg-gray-100 p-6 text-black dark:bg-[#0f172a] dark:text-white">
+    <main className="flex min-h-screen items-center justify-center bg-gray-100 p-4 text-black dark:bg-[#0f172a] dark:text-white sm:p-6">
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-gray-950"
+        className="w-full max-w-sm rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6 dark:border-gray-800 dark:bg-gray-950"
       >
         <div className="mb-6 flex items-center gap-3">
           <div className="flex h-11 w-11 items-center justify-center rounded-lg bg-blue-600 text-white">

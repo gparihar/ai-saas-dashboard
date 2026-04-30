@@ -557,28 +557,29 @@ export default function AIToolsPage() {
   };
 
   return (
-    <section className="flex h-full min-h-0 min-w-0 flex-col p-6">
-      <div className="mb-4 flex items-center justify-between gap-4">
+    <section className="flex h-full min-h-0 min-w-0 flex-col p-4 sm:p-6">
+      <div className="mb-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-xl font-bold">AI Tools</h1>
           <p className="text-sm text-gray-500">{activeSession?.title || "New chat"}</p>
         </div>
 
-        <div className="flex flex-wrap justify-end gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={handleNewChat}
             className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-3 py-2 text-sm font-medium text-white hover:bg-blue-700"
           >
             <Plus size={16} />
-            New Chat
+            <span className="hidden sm:inline">New Chat</span>
+            <span className="sm:hidden">New</span>
           </button>
           <Link
             href="/dashboard/settings"
             className="inline-flex items-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 dark:border-gray-800 dark:bg-gray-950 dark:text-gray-200 dark:hover:bg-gray-900"
           >
             <History size={16} />
-            History
+            <span className="hidden sm:inline">History</span>
           </Link>
           {(Object.keys(toolDetails) as ToolType[]).map((tool) => (
             <ToolButton
@@ -591,7 +592,7 @@ export default function AIToolsPage() {
         </div>
       </div>
 
-      <div className="mb-4 grid gap-3 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
+      <div className="mb-4 grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_auto]">
         <LiveUpdateCard
           tool="weather"
           state={liveTools.weather}
@@ -628,7 +629,7 @@ export default function AIToolsPage() {
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`relative max-w-[72%] rounded-xl px-4 py-3 text-sm leading-relaxed ${
+                className={`relative max-w-[85%] rounded-xl px-4 py-3 text-sm leading-relaxed sm:max-w-[72%] ${
                   msg.role === "user"
                     ? "bg-blue-600 text-white"
                     : "bg-gray-200 text-gray-950 dark:bg-gray-800 dark:text-white"
@@ -684,7 +685,7 @@ export default function AIToolsPage() {
           <ToolBadge tool={detectedTool} />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex flex-col gap-2 sm:flex-row">
           <input
             ref={inputRef}
             type="text"
@@ -693,17 +694,17 @@ export default function AIToolsPage() {
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             disabled={loading}
-            className="min-w-0 flex-1 rounded-lg border border-gray-300 bg-white p-3 outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900"
+            className="min-w-0 flex-1 rounded-lg border border-gray-300 bg-white p-3 text-sm outline-none focus:border-blue-500 dark:border-gray-700 dark:bg-gray-900"
           />
 
           <button
             type="button"
             onClick={() => handleSend()}
             disabled={loading || !input.trim()}
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded-lg bg-blue-600 px-4 py-3 text-sm font-medium text-white hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-60 sm:py-3"
           >
             <Send size={17} />
-            <span>{loading ? "Sending" : "Send"}</span>
+            <span className="hidden sm:inline">{loading ? "Sending" : "Send"}</span>
           </button>
         </div>
       </div>

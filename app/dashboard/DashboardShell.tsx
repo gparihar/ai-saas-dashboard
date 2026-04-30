@@ -8,6 +8,8 @@ import {
   Settings,
   Sun,
   UserCircle,
+  Menu,
+  X,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
@@ -28,6 +30,7 @@ export default function DashboardShell({ children }: { children: ReactNode }) {
   const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [username, setUsername] = useState("User");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -46,6 +49,10 @@ export default function DashboardShell({ children }: { children: ReactNode }) {
       });
   }, []);
 
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
+
   const isDark = mounted ? resolvedTheme === "dark" : true;
 
   const handleLogout = async () => {
@@ -55,8 +62,13 @@ export default function DashboardShell({ children }: { children: ReactNode }) {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 text-black dark:bg-[#0f172a] dark:text-white">
-      <aside className="flex w-64 shrink-0 flex-col justify-between bg-black p-4 text-white">
+    <div className="flex h-screen flex-col bg-gray-100 text-black dark:bg-[#0f172a] dark:text-white lg:flex-row">
+      {/* Sidebar */}
+      <aside
+        className={`fixed left-0 top-0 z-50 h-screen w-64 transform overflow-y-auto bg-black p-4 text-white transition-transform duration-300 ease-in-out lg:relative lg:z-auto lg:translate-x-0 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
         <div>
           <h1 className="mb-6 text-xl font-bold">AI SaaS</h1>
 
@@ -96,7 +108,7 @@ export default function DashboardShell({ children }: { children: ReactNode }) {
             <button
               type="button"
               onClick={handleLogout}
-              className="mt-3 flex w-full items-center justify-center gap-2 rounded-md bg-gray-800 px-3 py-2 text-sm hover:bg-gray-700"
+              className="mt-3 flex w-full items-center justify-center gap-2 rounded-lg bg-gray-800 px-3 py-2 text-sm font-medium hover:bg-gray-700"
             >
               <LogOut size={16} />
               Logout
@@ -106,15 +118,38 @@ export default function DashboardShell({ children }: { children: ReactNode }) {
           <button
             type="button"
             onClick={() => setTheme(isDark ? "light" : "dark")}
-            className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-800 py-2 text-sm hover:bg-gray-700"
+            className="flex w-full items-center justify-center gap-2 rounded-lg bg-gray-800 px-3 py-2 text-sm font-medium hover:bg-gray-700"
           >
             {isDark ? <Sun size={17} /> : <Moon size={17} />}
-            <span>{isDark ? "Light Mode" : "Dark Mode"}</span>
+            <span className="hidden sm:inline">{isDark ? "Light Mode" : "Dark Mode"}</span>
           </button>
         </div>
       </aside>
 
-      <main className="min-w-0 flex-1 overflow-hidden">{children}</main>
+      {/* Overlay for mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
+      {/* Main content */}
+      <div className="flex min-w-0 flex-1 flex-col">
+        {/* Header */}
+        <div className="flex items-center justify-between bg-white p-4 dark:bg-gray-950 lg:hidden">
+          <h1 className="text-lg font-bold">AI SaaS</h1>
+          <button
+            type="button"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="rounded-lg p-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+          >
+            {sidebarOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        <main className="min-w-0 flex-1 overflow-hidden">{children}</main>
+      </div>
     </div>
   );
 }
