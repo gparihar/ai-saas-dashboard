@@ -163,7 +163,7 @@ async function getNewsText() {
 async function getAIResponse(prompt: string) {
   const groq = getGroqClient();
   const completion = await groq.chat.completions.create({
-    model: process.env.GROQ_MODEL || "llama-3.3-70b-versatile",
+    model: process.env.GROQ_MODEL || "openai/gpt-oss-120b",
     messages: [
       { role: "system", content: "You are a helpful AI assistant." },
       { role: "user", content: prompt },
